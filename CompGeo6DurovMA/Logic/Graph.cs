@@ -154,7 +154,7 @@ namespace CompGeo6DurovMA.Logic
                             if (e.LeftNode != null)
                             {
                                 if (!e.LeftNode.IsDrawn)
-                                    DrawEdge(g, p, e.LeftNode, e.Weight, e); // отдельный метод для рисования ребра (так лучше)
+                                    DrawEdge(g, p, e.LeftNode, e.Weight, e); 
                             }
                         }
 
@@ -177,15 +177,18 @@ namespace CompGeo6DurovMA.Logic
         private void DrawEdge(Graphics g, NodeGraph p, NodeGraph n, int weight, EdgeGraph edge)////////////////////////////////////////////DORABOTATb
         {
             //if (edge.IsBuilt)
-            {
-                g.DrawLine(DrawUtils.PenLineSpecial, p.X0, p.Y0, n.X0, n.Y0);
-                g.DrawString(weight.ToString(), DrawUtils.FontEdge, DrawUtils.BrushEdgesDataSpecial, (p.X0 + n.X0) / 2, (p.Y0 + n.Y0) / 2);
-            }
-           // else
-            {
-                g.DrawLine(DrawUtils.PenLine, p.X0, p.Y0, n.X0, n.Y0);
+           // {
+            //    g.DrawLine(DrawUtils.PenLineSpecial, p.X0, p.Y0, n.X0, n.Y0);
+            //    g.DrawString(weight.ToString(), DrawUtils.FontEdge, DrawUtils.BrushEdgesDataSpecial, (p.X0 + n.X0) / 2, (p.Y0 + n.Y0) / 2);
+            //}
+            //else
+            //{
+              //g.DrawLine(DrawUtils.PenLine, p.X0, p.Y0, n.X0, n.Y0);
+                g.DrawLine(DrawUtils.PenLine,p.X0,p.Y0,p.X0, p.Y0 + (n.Y0 - p.Y0)/2);
+                g.DrawLine(DrawUtils.PenLine, p.X0, p.Y0 + (n.Y0 - p.Y0) / 2, n.X0, p.Y0 + (n.Y0 - p.Y0) / 2);
+                g.DrawLine(DrawUtils.PenLine, n.X0, p.Y0 + (n.Y0 - p.Y0) / 2, n.X0, n.Y0);
                 g.DrawString(weight.ToString(), DrawUtils.FontEdge, DrawUtils.BrushNodeData, (p.X0 + n.X0) / 2, (p.Y0 + n.Y0) / 2);
-            }
+            //}
 
         }
 

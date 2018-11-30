@@ -16,7 +16,7 @@ namespace CompGeo6DurovMA.Logic
         public static SolidBrush BrushBackground = new SolidBrush(Color.NavajoWhite);
         public static SolidBrush BrushBackHighLight = new SolidBrush(Color.LemonChiffon);
         public static SolidBrush BrushNodeData = new SolidBrush(Color.Black);
-        public static SolidBrush BrushEdgesDataSpecial = new SolidBrush(Color.Red);
+        public static SolidBrush BrushEdgesDataSpecial = new SolidBrush(Color.Crimson);
         public static Font FontNode = new Font("Arial", 15);
         public static Font FontEdge = new Font("Arial", 12);
     }
