@@ -12,6 +12,6 @@ namespace CompGeo6DurovMA.Logic
         public bool IsDrawn { get; set; }
         public int X0 { get; set; } 
         public int Y0 { get; set; }
-        public List<EdgeGraph> Edges;
+        public List<EdgeGraph> Edges { get; set; }
     }
 }

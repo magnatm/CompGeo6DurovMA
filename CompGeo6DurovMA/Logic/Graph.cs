@@ -54,7 +54,7 @@ namespace CompGeo6DurovMA.Logic
         }
 
         private EdgeGraph EdgeGraphAdd;
-        public void AddEdge(int x, int y, int weight)
+        public void AddEdge(int x, int y)
         {
             if (EdgeGraphAdd == null)
             {
@@ -72,14 +72,13 @@ namespace CompGeo6DurovMA.Logic
                 if (EdgeGraphAdd.RightNode != null)
                 {
                     FindByXY(x, y).Edges.Add(EdgeGraphAdd);
-                    EdgeGraphAdd.Weight = weight;
                     EdgesList.Add(EdgeGraphAdd);
                     EdgeGraphAdd = null;
                 }
             }
         }
 
-        public void DeleteEdge(int x, int y) //может быть треугольник
+        public void DeleteEdge(int x, int y) /////////////////////////////////////////////////////////////////////
         {
             double dist1, dist2, rebro;
             for (int i = 0; i < EdgesList.Count; i++)
@@ -122,6 +121,34 @@ namespace CompGeo6DurovMA.Logic
             }
         }
 
+        //public void HiglightEdge(int x, int y)/////////////////////////////////////////////////////NEED_UPD
+        //{
+        //    double distRnode, distLnode, distMid1, distMid2;
+        //    double edgeRnode, edgeLnode, edgeMid;
+        //    for (int i = 0; i < EdgesList.Count; i++)
+        //    {
+        //        distLnode = Math.Sqrt(Math.Pow(x - EdgesList[i].LeftNode.X0, 2) + Math.Pow(y - EdgesList[i].LeftNode.Y0, 2));
+        //        distRnode = Math.Sqrt(Math.Pow(x - EdgesList[i].RightNode.X0, 2) + Math.Pow(y - EdgesList[i].RightNode.Y0, 2));
+        //        distMid1 = Math.Sqrt(Math.Pow(x - EdgesList[i].LeftNode.X0, 2) + Math.Pow(y - (EdgesList[i].RightNode.Y0-EdgesList[i].LeftNode.Y0)/2+ EdgesList[i].LeftNode.Y0, 2));
+        //        distMid2 = Math.Sqrt(Math.Pow(x - EdgesList[i].RightNode.X0, 2) + Math.Pow(y - (EdgesList[i].RightNode.Y0 - EdgesList[i].LeftNode.Y0) / 2 + EdgesList[i].LeftNode.Y0, 2));
+        //        edgeRnode = Math.Abs(EdgesList[i].RightNode.Y0 - (EdgesList[i].RightNode.Y0 - EdgesList[i].LeftNode.Y0) / 2);
+        //        edgeLnode = Math.Abs(EdgesList[i].RightNode.Y0 - (EdgesList[i].RightNode.Y0 - EdgesList[i].LeftNode.Y0) / 2);
+        //        edgeMid = Math.Abs(EdgesList[i].RightNode.X0 - EdgesList[i].LeftNode.X0);
+        //        if (Math.Abs(distRnode + distMid2 - edgeRnode) < 0.1)
+        //        {
+        //            EdgesList[i].IsHighlighted = true;
+        //        }
+        //        if (Math.Abs(distMid1 + distMid2 - edgeMid) < 0.1)
+        //        {
+        //            EdgesList[i].IsHighlighted = true;
+        //        }
+        //        if (Math.Abs(distLnode + distMid1 - edgeLnode) < 0.1)
+        //        {
+        //            EdgesList[i].IsHighlighted = true;
+        //        }
+        //    }
+        //}
+
         public void Draw(Graphics g)
         {
             foreach (NodeGraph x in NodesList)
@@ -154,7 +181,7 @@ namespace CompGeo6DurovMA.Logic
                             if (e.LeftNode != null)
                             {
                                 if (!e.LeftNode.IsDrawn)
-                                    DrawEdge(g, p, e.LeftNode, e.Weight, e); 
+                                    DrawEdge(g, p, e.LeftNode, false); 
                             }
                         }
 
@@ -163,7 +190,7 @@ namespace CompGeo6DurovMA.Logic
                             if (e.RightNode != null)
                             {
                                 if (!e.RightNode.IsDrawn)
-                                    DrawEdge(g, p, e.RightNode, e.Weight, e);
+                                    DrawEdge(g, p, e.RightNode, true);
                             }
                         }
                     }
@@ -174,22 +201,95 @@ namespace CompGeo6DurovMA.Logic
             p.IsDrawn = true;
         }
 
-        private void DrawEdge(Graphics g, NodeGraph p, NodeGraph n, int weight, EdgeGraph edge)////////////////////////////////////////////DORABOTATb
+        private void DrawEdge(Graphics g, NodeGraph p, NodeGraph n, bool IsNRight)////////////////////////////////////////////DORABOTATb
         {
-            //if (edge.IsBuilt)
-           // {
-            //    g.DrawLine(DrawUtils.PenLineSpecial, p.X0, p.Y0, n.X0, n.Y0);
-            //    g.DrawString(weight.ToString(), DrawUtils.FontEdge, DrawUtils.BrushEdgesDataSpecial, (p.X0 + n.X0) / 2, (p.Y0 + n.Y0) / 2);
-            //}
-            //else
-            //{
-              //g.DrawLine(DrawUtils.PenLine, p.X0, p.Y0, n.X0, n.Y0);
-                g.DrawLine(DrawUtils.PenLine,p.X0,p.Y0,p.X0, p.Y0 + (n.Y0 - p.Y0)/2);
-                g.DrawLine(DrawUtils.PenLine, p.X0, p.Y0 + (n.Y0 - p.Y0) / 2, n.X0, p.Y0 + (n.Y0 - p.Y0) / 2);
-                g.DrawLine(DrawUtils.PenLine, n.X0, p.Y0 + (n.Y0 - p.Y0) / 2, n.X0, n.Y0);
-                g.DrawString(weight.ToString(), DrawUtils.FontEdge, DrawUtils.BrushNodeData, (p.X0 + n.X0) / 2, (p.Y0 + n.Y0) / 2);
-            //}
+            //g.DrawLine(DrawUtils.PenLine, p.X0, p.Y0, n.X0, n.Y0);
 
+            g.DrawLine(DrawUtils.PenLine, p.X0, p.Y0, p.X0, p.Y0 + (n.Y0 - p.Y0) / 2);
+            g.DrawLine(DrawUtils.PenLine, p.X0, p.Y0 + (n.Y0 - p.Y0) / 2, n.X0, p.Y0 + (n.Y0 - p.Y0) / 2);
+            g.DrawLine(DrawUtils.PenLine, n.X0, p.Y0 + (n.Y0 - p.Y0) / 2, n.X0, n.Y0);
+
+            if (IsNRight)
+            {
+
+                if (n.Y0 < p.Y0)
+                {
+                    DrawUpArrow(g, p.X0, p.Y0, p.X0, p.Y0 + (n.Y0 - p.Y0) / 2);
+                    DrawUpArrow(g, n.X0, p.Y0 + (n.Y0 - p.Y0) / 2, n.X0, n.Y0);
+                }
+                else
+                {
+                    DrawDownArrow(g, p.X0, p.Y0, p.X0, p.Y0 + (n.Y0 - p.Y0) / 2);
+                    DrawDownArrow(g, n.X0, p.Y0 + (n.Y0 - p.Y0) / 2, n.X0, n.Y0);
+                }
+
+                if (n.X0 > p.X0)
+                {
+                    DrawLtoRArrow(g,p.X0,p.Y0,n.X0,n.Y0);
+                }
+                else
+                {
+                    DrawRtoLArrow(g, p.X0, p.Y0, n.X0, n.Y0);
+                }
+            }
+            else
+            {
+                if (n.Y0 > p.Y0)
+                {
+                    DrawUpArrow(g, p.X0, p.Y0, p.X0, p.Y0 + (n.Y0 - p.Y0) / 2);
+                    DrawUpArrow(g, n.X0, p.Y0 + (n.Y0 - p.Y0) / 2, n.X0, n.Y0);
+                }
+                else
+                {
+                    DrawDownArrow(g, p.X0, p.Y0, p.X0, p.Y0 + (n.Y0 - p.Y0) / 2);
+                    DrawDownArrow(g, n.X0, p.Y0 + (n.Y0 - p.Y0) / 2, n.X0, n.Y0);
+                }
+
+                if (n.X0 > p.X0)
+                {
+                    DrawRtoLArrow(g, p.X0, p.Y0, n.X0, n.Y0);
+                }
+                else
+                {
+                    DrawLtoRArrow(g, p.X0, p.Y0, n.X0, n.Y0);
+                }
+            }
+        }
+
+        private void DrawUpArrow(Graphics g,int px, int py, int nx, int ny)
+        {
+            if (Math.Abs(ny - py) > 15)
+            {
+                g.DrawLine(Pens.Blue, px, (ny - py)/2+py, px+5, (ny - py) / 2 + 5+py);
+                g.DrawLine(Pens.Blue, px, (ny - py) / 2+py, px - 5, (ny - py) / 2 + 5+py);
+            }
+        }
+
+        private void DrawDownArrow(Graphics g, int px, int py, int nx, int ny)
+        {
+            if (Math.Abs(ny - py) > 15)
+            {
+                g.DrawLine(Pens.Blue, px, (ny - py) / 2 + py, px + 5, (ny - py) / 2 -5  + py);
+                g.DrawLine(Pens.Blue, px, (ny - py) / 2 + py, px - 5, (ny - py) / 2 - 5 + py);
+            }
+        }
+
+        private void DrawLtoRArrow(Graphics g,int px, int py, int nx, int ny)
+        {
+            if (Math.Abs(nx - px) > 15)
+            {
+                g.DrawLine(Pens.Blue, (px + nx) / 2 - 5, py + (ny - py) / 2 + 5, (px + nx) / 2 + 5, py + (ny - py) / 2);
+                g.DrawLine(Pens.Blue, (px + nx) / 2 - 5, py + (ny - py) / 2 - 5, (px + nx) / 2 + 5, py + (ny - py) / 2);
+            }
+        }
+
+        private void DrawRtoLArrow(Graphics g, int px, int py, int nx, int ny)
+        {
+            if (Math.Abs(nx - px) > 15)
+            {
+                g.DrawLine(Pens.Blue, (px + nx) / 2 + 5, py + (ny - py) / 2 + 5, (px + nx) / 2 - 5, py + (ny - py) / 2);
+                g.DrawLine(Pens.Blue, (px + nx) / 2 + 5, py + (ny - py) / 2 - 5, (px + nx) / 2 - 5, py + (ny - py) / 2);
+            }
         }
 
         private void DrawNode(Graphics g, NodeGraph p)
@@ -214,7 +314,7 @@ namespace CompGeo6DurovMA.Logic
             {
                 if (p != null)
                 {
-                    if ((p.X0 - x) * (p.X0 - x) + (p.Y0 - y) * (p.Y0 - y) < 40 * 40) //r - радиус нода
+                    if ((p.X0 - x) * (p.X0 - x) + (p.Y0 - y) * (p.Y0 - y) < 40 * 40)
                         return p;
                 }
             }
@@ -292,13 +392,13 @@ namespace CompGeo6DurovMA.Logic
                 writer.WriteLine(NodesList[i].Name);
                 writer.WriteLine(NodesList[i].X0);
                 writer.WriteLine(NodesList[i].Y0);
-                //writer.WriteLine(NodesList[i].CostOfNetwork);
             }
             writer.WriteLine("NODESDONE");
+            writer.WriteLine("");
 
             for (int i = 0; i < EdgesList.Count; i++)
             {
-                writer.WriteLine(EdgesList[i].Weight);
+                writer.WriteLine(EdgesList[i].IsHighlighted);
                 writer.WriteLine(EdgesList[i].RightNode.X0);
                 writer.WriteLine(EdgesList[i].RightNode.Y0);
                 writer.WriteLine(EdgesList[i].LeftNode.X0);
@@ -321,15 +421,13 @@ namespace CompGeo6DurovMA.Logic
                 node.Name = line;
                 node.X0 = Convert.ToInt32(reader.ReadLine());
                 node.Y0 = Convert.ToInt32(reader.ReadLine());
-                //node.CostOfNetwork = Convert.ToInt32(reader.ReadLine());
                 graphRGraph.NodesList.Add(node);
             }
 
             while ((line = reader.ReadLine()) != "EDGESDONE")
             {
                 EdgeGraph edge = new EdgeGraph();
-                edge.Weight = Convert.ToInt32(line);
-                //edge.IsBuilt = Convert.ToBoolean(reader.ReadLine());
+                edge.IsHighlighted = Convert.ToBoolean(reader.ReadLine());
                 int xTemp = Convert.ToInt32(reader.ReadLine());
                 int yTemp = Convert.ToInt32(reader.ReadLine());
                 NodeGraph tmp = new NodeGraph();

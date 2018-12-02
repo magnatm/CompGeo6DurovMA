@@ -30,8 +30,6 @@
         {
             this.buttonLoadGraph = new System.Windows.Forms.Button();
             this.buttonSaveGraph = new System.Windows.Forms.Button();
-            this.textBoxWeight = new System.Windows.Forms.TextBox();
-            this.labelAddWeight = new System.Windows.Forms.Label();
             this.labelAddNode = new System.Windows.Forms.Label();
             this.textBoxAddNode = new System.Windows.Forms.TextBox();
             this.groupBoxChecks = new System.Windows.Forms.GroupBox();
@@ -47,7 +45,7 @@
             // 
             // buttonLoadGraph
             // 
-            this.buttonLoadGraph.Location = new System.Drawing.Point(12, 244);
+            this.buttonLoadGraph.Location = new System.Drawing.Point(12, 227);
             this.buttonLoadGraph.Name = "buttonLoadGraph";
             this.buttonLoadGraph.Size = new System.Drawing.Size(133, 23);
             this.buttonLoadGraph.TabIndex = 25;
@@ -57,29 +55,13 @@
             // 
             // buttonSaveGraph
             // 
-            this.buttonSaveGraph.Location = new System.Drawing.Point(12, 215);
+            this.buttonSaveGraph.Location = new System.Drawing.Point(12, 198);
             this.buttonSaveGraph.Name = "buttonSaveGraph";
             this.buttonSaveGraph.Size = new System.Drawing.Size(133, 23);
             this.buttonSaveGraph.TabIndex = 24;
             this.buttonSaveGraph.Text = "Сохранить граф";
             this.buttonSaveGraph.UseVisualStyleBackColor = true;
             this.buttonSaveGraph.Click += new System.EventHandler(this.buttonSaveGraph_Click);
-            // 
-            // textBoxWeight
-            // 
-            this.textBoxWeight.Location = new System.Drawing.Point(104, 189);
-            this.textBoxWeight.Name = "textBoxWeight";
-            this.textBoxWeight.Size = new System.Drawing.Size(41, 20);
-            this.textBoxWeight.TabIndex = 23;
-            // 
-            // labelAddWeight
-            // 
-            this.labelAddWeight.AutoSize = true;
-            this.labelAddWeight.Location = new System.Drawing.Point(33, 192);
-            this.labelAddWeight.Name = "labelAddWeight";
-            this.labelAddWeight.Size = new System.Drawing.Size(65, 13);
-            this.labelAddWeight.TabIndex = 22;
-            this.labelAddWeight.Text = "Вес ребра: ";
             // 
             // labelAddNode
             // 
@@ -185,8 +167,6 @@
             this.Controls.Add(this.pictureBoxMain);
             this.Controls.Add(this.buttonLoadGraph);
             this.Controls.Add(this.buttonSaveGraph);
-            this.Controls.Add(this.textBoxWeight);
-            this.Controls.Add(this.labelAddWeight);
             this.Controls.Add(this.labelAddNode);
             this.Controls.Add(this.textBoxAddNode);
             this.Controls.Add(this.groupBoxChecks);
@@ -204,8 +184,6 @@
         #endregion
         private System.Windows.Forms.Button buttonLoadGraph;
         private System.Windows.Forms.Button buttonSaveGraph;
-        private System.Windows.Forms.TextBox textBoxWeight;
-        private System.Windows.Forms.Label labelAddWeight;
         private System.Windows.Forms.Label labelAddNode;
         private System.Windows.Forms.TextBox textBoxAddNode;
         private System.Windows.Forms.GroupBox groupBoxChecks;

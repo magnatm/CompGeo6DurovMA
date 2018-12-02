@@ -52,7 +52,7 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logic\DrawUtils.cs" />
+    <Compile Include="Drawing\DrawUtils.cs" />
     <Compile Include="Logic\EdgeGraph.cs" />
     <Compile Include="Logic\Graph.cs" />
     <Compile Include="Logic\NodeGraph.cs" />

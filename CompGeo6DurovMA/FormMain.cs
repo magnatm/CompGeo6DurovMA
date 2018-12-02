@@ -45,9 +45,7 @@ namespace CompGeo6DurovMA
             groupBoxChecks.Controls.Add(radioButtonAddEdge);
             groupBoxChecks.Controls.Add(radioButtonDelEdge);
             textBoxAddNode.MaxLength = 2;
-            textBoxWeight.MaxLength = 3;
             textBoxAddNode.Text = "аа";
-            textBoxWeight.Text = "10";
 
             g = pictureBoxMain.CreateGraphics();
             rect = pictureBoxMain.ClientRectangle;
@@ -116,21 +114,14 @@ namespace CompGeo6DurovMA
 
             if (radioButtonAddEdge.Checked)
             {
-                try
-                {
-                    graph.AddEdge(e.X, e.Y, Convert.ToInt32(textBoxWeight.Text));
-                }
-                catch
-                {
-                    textBoxWeight.Clear();
-                    MessageBox.Show("Введите вес корректно!");
-                }
+                graph.AddEdge(e.X, e.Y);
                 graph.Draw(g);
             }
 
             if (radioButtonDelEdge.Checked)
             {
-                graph.DeleteEdge(e.X, e.Y);
+                //graph.DeleteEdge(e.X, e.Y);
+               // graph.HiglightEdge(e.X,e.Y);
                 graph.Draw(g);
             }
         }
@@ -151,6 +142,7 @@ namespace CompGeo6DurovMA
                 return;
 
             graph = graph.LoadGraph(openFileDialog.FileName);
+            g.DrawRectangle(Pens.BlueViolet,rect);
             graph.Draw(g);
         }
 
