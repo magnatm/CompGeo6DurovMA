@@ -91,7 +91,7 @@ namespace CompGeo6DurovMA
                 if (textBoxAddNode.Text != "")
                 {
                     int k = graph.GetNodesListCount();
-                    graph.AddNode(e.X, e.Y, textBoxAddNode.Text);
+                    graph.AddNode(e.X, e.Y, textBoxAddNode.Text, buttonNodeColor.BackColor, buttonNodeFill.BackColor, buttonFontColor.BackColor);
                     if (k != graph.GetNodesListCount())
                     {
                         textBoxAddNode.Text = GrowNodeName(textBoxAddNode.Text);
@@ -151,6 +151,20 @@ namespace CompGeo6DurovMA
             Graphics gr = e.Graphics;
             gr.Clear(Color.AliceBlue);
             gr.DrawRectangle(Pens.BlueViolet,rect);
+        }
+
+        private void buttonNodeColor_Click(object sender, EventArgs e)
+        {
+            colorDialog1.Color = buttonNodeColor.BackColor;
+            colorDialog1.ShowDialog();
+            buttonNodeColor.BackColor = colorDialog1.Color;
+        }
+
+        private void buttonNodeFill_Click(object sender, EventArgs e)
+        {
+            colorDialog1.Color = buttonNodeFill.BackColor;
+            colorDialog1.ShowDialog();
+            buttonNodeFill.BackColor = colorDialog1.Color;
         }
     }
 }

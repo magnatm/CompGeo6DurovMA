@@ -23,7 +23,7 @@ namespace CompGeo6DurovMA.Logic
             return EdgesList.Count;
         }
 
-        public void AddNode(int x, int y, string name)
+        public void AddNode(int x, int y, string name, Color borderColor, Color fillColor, Color fontColor)
         {
             if (FindByXY(x, y) == null)
             {
@@ -32,6 +32,9 @@ namespace CompGeo6DurovMA.Logic
                 node.Y0 = y;
                 node.Name = name;
                 node.Edges = new List<EdgeGraph>();
+                node.BorderColor = borderColor;
+                node.FillColor = fillColor;
+                node.FontColor = fontColor;
                 NodesList.Add(node);
             }
         }
@@ -301,11 +304,11 @@ namespace CompGeo6DurovMA.Logic
             }
             else
             {
-                g.FillEllipse(DrawUtils.BrushBackground, p.X0 - 20, p.Y0 - 20, 40, 40);
-                g.DrawEllipse(DrawUtils.PenNode, p.X0 - 20, p.Y0 - 20, 40, 40);
+                g.FillEllipse(new SolidBrush(p.FillColor), p.X0 - 20, p.Y0 - 20, 40, 40);
+                g.DrawEllipse(new Pen(p.BorderColor), p.X0 - 20, p.Y0 - 20, 40, 40);
             }
 
-            g.DrawString(p.Name, DrawUtils.FontNode, DrawUtils.BrushNodeData, p.X0 - 12, p.Y0 - 12);
+            g.DrawString(p.Name, DrawUtils.FontNode, new SolidBrush(p.FontColor), p.X0 - 12, p.Y0 - 12);
         }
 
         private NodeGraph FindByXY(int x, int y) // нахождение вершины по координатам через мышку
@@ -392,13 +395,15 @@ namespace CompGeo6DurovMA.Logic
                 writer.WriteLine(NodesList[i].Name);
                 writer.WriteLine(NodesList[i].X0);
                 writer.WriteLine(NodesList[i].Y0);
+                writer.WriteLine(NodesList[i].BorderColor.ToArgb());
+                writer.WriteLine(NodesList[i].FillColor.ToArgb());
+                writer.WriteLine(NodesList[i].FontColor.ToArgb());
             }
             writer.WriteLine("NODESDONE");
             writer.WriteLine("");
 
             for (int i = 0; i < EdgesList.Count; i++)
             {
-                writer.WriteLine(EdgesList[i].IsHighlighted);
                 writer.WriteLine(EdgesList[i].RightNode.X0);
                 writer.WriteLine(EdgesList[i].RightNode.Y0);
                 writer.WriteLine(EdgesList[i].LeftNode.X0);
@@ -421,28 +426,34 @@ namespace CompGeo6DurovMA.Logic
                 node.Name = line;
                 node.X0 = Convert.ToInt32(reader.ReadLine());
                 node.Y0 = Convert.ToInt32(reader.ReadLine());
+                node.BorderColor = Color.FromArgb(Convert.ToInt32(reader.ReadLine()));
+                node.FillColor = Color.FromArgb(Convert.ToInt32(reader.ReadLine()));
+                node.FontColor = Color.FromArgb(Convert.ToInt32(reader.ReadLine()));
                 graphRGraph.NodesList.Add(node);
             }
 
             while ((line = reader.ReadLine()) != "EDGESDONE")
             {
-                EdgeGraph edge = new EdgeGraph();
-                edge.IsHighlighted = Convert.ToBoolean(reader.ReadLine());
-                int xTemp = Convert.ToInt32(reader.ReadLine());
-                int yTemp = Convert.ToInt32(reader.ReadLine());
-                NodeGraph tmp = new NodeGraph();
-                tmp = graphRGraph.FindByXY(xTemp, yTemp);
-                edge.RightNode = tmp;
-                tmp.Edges.Add(edge);
+                if (line != "")
+                {
+                    EdgeGraph edge = new EdgeGraph();
+                    int xTemp = Convert.ToInt32(line);
+                    int yTemp = Convert.ToInt32(reader.ReadLine());
+                    NodeGraph tmp = new NodeGraph();
+                    tmp = graphRGraph.FindByXY(xTemp, yTemp);
+                    edge.RightNode = tmp;
+                    tmp.Edges.Add(edge);
 
-                xTemp = Convert.ToInt32(reader.ReadLine());
-                yTemp = Convert.ToInt32(reader.ReadLine());
-                tmp = graphRGraph.FindByXY(xTemp, yTemp);
-                edge.LeftNode = tmp;
-                tmp.Edges.Add(edge);
+                    xTemp = Convert.ToInt32(reader.ReadLine());
+                    yTemp = Convert.ToInt32(reader.ReadLine());
+                    tmp = graphRGraph.FindByXY(xTemp, yTemp);
+                    edge.LeftNode = tmp;
+                    tmp.Edges.Add(edge);
 
-                graphRGraph.EdgesList.Add(edge);
+                    graphRGraph.EdgesList.Add(edge);
+                }
             }
+
             reader.Close();
             return graphRGraph;
         }

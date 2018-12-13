@@ -39,6 +39,13 @@
             this.radioButtonDelNode = new System.Windows.Forms.RadioButton();
             this.radioButtonAddNode = new System.Windows.Forms.RadioButton();
             this.pictureBoxMain = new System.Windows.Forms.PictureBox();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.buttonNodeColor = new System.Windows.Forms.Button();
+            this.buttonNodeFill = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonFontColor = new System.Windows.Forms.Button();
             this.groupBoxChecks.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.SuspendLayout();
@@ -47,7 +54,7 @@
             // 
             this.buttonLoadGraph.Location = new System.Drawing.Point(12, 227);
             this.buttonLoadGraph.Name = "buttonLoadGraph";
-            this.buttonLoadGraph.Size = new System.Drawing.Size(133, 23);
+            this.buttonLoadGraph.Size = new System.Drawing.Size(151, 23);
             this.buttonLoadGraph.TabIndex = 25;
             this.buttonLoadGraph.Text = "Загрузить граф";
             this.buttonLoadGraph.UseVisualStyleBackColor = true;
@@ -57,7 +64,7 @@
             // 
             this.buttonSaveGraph.Location = new System.Drawing.Point(12, 198);
             this.buttonSaveGraph.Name = "buttonSaveGraph";
-            this.buttonSaveGraph.Size = new System.Drawing.Size(133, 23);
+            this.buttonSaveGraph.Size = new System.Drawing.Size(151, 23);
             this.buttonSaveGraph.TabIndex = 24;
             this.buttonSaveGraph.Text = "Сохранить граф";
             this.buttonSaveGraph.UseVisualStyleBackColor = true;
@@ -74,9 +81,9 @@
             // 
             // textBoxAddNode
             // 
-            this.textBoxAddNode.Location = new System.Drawing.Point(104, 163);
+            this.textBoxAddNode.Location = new System.Drawing.Point(112, 163);
             this.textBoxAddNode.Name = "textBoxAddNode";
-            this.textBoxAddNode.Size = new System.Drawing.Size(41, 20);
+            this.textBoxAddNode.Size = new System.Drawing.Size(51, 20);
             this.textBoxAddNode.TabIndex = 20;
             // 
             // groupBoxChecks
@@ -88,7 +95,7 @@
             this.groupBoxChecks.Controls.Add(this.radioButtonAddNode);
             this.groupBoxChecks.Location = new System.Drawing.Point(12, 12);
             this.groupBoxChecks.Name = "groupBoxChecks";
-            this.groupBoxChecks.Size = new System.Drawing.Size(133, 140);
+            this.groupBoxChecks.Size = new System.Drawing.Size(151, 140);
             this.groupBoxChecks.TabIndex = 19;
             this.groupBoxChecks.TabStop = false;
             this.groupBoxChecks.Text = "Режим";
@@ -150,13 +157,69 @@
             // 
             // pictureBoxMain
             // 
-            this.pictureBoxMain.Location = new System.Drawing.Point(151, 3);
+            this.pictureBoxMain.Location = new System.Drawing.Point(169, 3);
             this.pictureBoxMain.Name = "pictureBoxMain";
-            this.pictureBoxMain.Size = new System.Drawing.Size(1272, 581);
+            this.pictureBoxMain.Size = new System.Drawing.Size(1254, 581);
             this.pictureBoxMain.TabIndex = 29;
             this.pictureBoxMain.TabStop = false;
             this.pictureBoxMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxMain_Paint);
             this.pictureBoxMain.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMain_MouseClick);
+            // 
+            // buttonNodeColor
+            // 
+            this.buttonNodeColor.BackColor = System.Drawing.Color.Red;
+            this.buttonNodeColor.Location = new System.Drawing.Point(112, 266);
+            this.buttonNodeColor.Name = "buttonNodeColor";
+            this.buttonNodeColor.Size = new System.Drawing.Size(51, 23);
+            this.buttonNodeColor.TabIndex = 30;
+            this.buttonNodeColor.UseVisualStyleBackColor = false;
+            this.buttonNodeColor.Click += new System.EventHandler(this.buttonNodeColor_Click);
+            // 
+            // buttonNodeFill
+            // 
+            this.buttonNodeFill.BackColor = System.Drawing.Color.Pink;
+            this.buttonNodeFill.Location = new System.Drawing.Point(112, 291);
+            this.buttonNodeFill.Name = "buttonNodeFill";
+            this.buttonNodeFill.Size = new System.Drawing.Size(51, 23);
+            this.buttonNodeFill.TabIndex = 31;
+            this.buttonNodeFill.UseVisualStyleBackColor = false;
+            this.buttonNodeFill.Click += new System.EventHandler(this.buttonNodeFill_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 271);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(104, 13);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "Цвет границы узла";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(57, 296);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(56, 13);
+            this.label2.TabIndex = 33;
+            this.label2.Text = "Фон узла";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(16, 322);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(95, 13);
+            this.label3.TabIndex = 34;
+            this.label3.Text = "Цвет текста узла";
+            // 
+            // buttonFontColor
+            // 
+            this.buttonFontColor.BackColor = System.Drawing.Color.MidnightBlue;
+            this.buttonFontColor.Location = new System.Drawing.Point(112, 317);
+            this.buttonFontColor.Name = "buttonFontColor";
+            this.buttonFontColor.Size = new System.Drawing.Size(51, 23);
+            this.buttonFontColor.TabIndex = 35;
+            this.buttonFontColor.UseVisualStyleBackColor = false;
             // 
             // FormMain
             // 
@@ -164,6 +227,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
             this.ClientSize = new System.Drawing.Size(1427, 699);
+            this.Controls.Add(this.buttonFontColor);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.buttonNodeFill);
+            this.Controls.Add(this.buttonNodeColor);
             this.Controls.Add(this.pictureBoxMain);
             this.Controls.Add(this.buttonLoadGraph);
             this.Controls.Add(this.buttonSaveGraph);
@@ -193,6 +262,13 @@
         private System.Windows.Forms.RadioButton radioButtonDelNode;
         private System.Windows.Forms.RadioButton radioButtonAddNode;
         private System.Windows.Forms.PictureBox pictureBoxMain;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Button buttonNodeColor;
+        private System.Windows.Forms.Button buttonNodeFill;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonFontColor;
     }
 }
 
