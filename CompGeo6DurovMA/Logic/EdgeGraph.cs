@@ -12,6 +12,8 @@ namespace CompGeo6DurovMA.Logic
         public bool IsHighlighted { get; set; }
         public NodeGraph LeftNode { get; set; }
         public NodeGraph RightNode { get; set; }
+        public Color EdgeColor { get; set; }
+        public Color ArrowColor { get; set; }
 
         public EdgeGraph()
         {

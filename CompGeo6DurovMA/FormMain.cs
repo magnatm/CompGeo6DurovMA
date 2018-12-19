@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CompGeo6DurovMA.Logic;
+using CompGeo6DurovMA.Utils;
 
 namespace CompGeo6DurovMA
 {
@@ -44,12 +45,17 @@ namespace CompGeo6DurovMA
             groupBoxChecks.Controls.Add(radioButtonMoveNode);
             groupBoxChecks.Controls.Add(radioButtonAddEdge);
             groupBoxChecks.Controls.Add(radioButtonDelEdge);
-            textBoxAddNode.MaxLength = 2;
+
+            groupBoxNode.Controls.Add(radioButtonRoundNode);
+            groupBoxNode.Controls.Add(radioButtonSquareNode);
+            radioButtonRoundNode.Checked = true;
+
+            textBoxAddNode.MaxLength = 10;
             textBoxAddNode.Text = "аа";
 
             g = pictureBoxMain.CreateGraphics();
             rect = pictureBoxMain.ClientRectangle;
-            rect.Width--;
+            rect.Width-=2;
             rect.Height--;
         }
 
@@ -83,47 +89,66 @@ namespace CompGeo6DurovMA
 
         private void pictureBoxMain_MouseClick(object sender, MouseEventArgs e)
         {
-            g = pictureBoxMain.CreateGraphics();
-            g.Clear(Color.AliceBlue);
-            g.DrawRectangle(Pens.BlueViolet, rect);
+            Graphics gr2 = pictureBoxMain.CreateGraphics();
+            Bitmap bitmap = new Bitmap(pictureBoxMain.Width, pictureBoxMain.Height);
+            Graphics g = Graphics.FromImage(bitmap);
+
+            //g = pictureBoxMain.CreateGraphics();
+            this.g.Clear(Color.AliceBlue);
+            this.g.DrawRectangle(Pens.BlueViolet, rect);
             if (radioButtonAddNode.Checked)
             {
+                
                 if (textBoxAddNode.Text != "")
                 {
                     int k = graph.GetNodesListCount();
-                    graph.AddNode(e.X, e.Y, textBoxAddNode.Text, buttonNodeColor.BackColor, buttonNodeFill.BackColor, buttonFontColor.BackColor);
+                    if (radioButtonRoundNode.Checked)
+                    {
+                        graph.AddNode(e.X, e.Y, textBoxAddNode.Text, buttonNodeColor.BackColor,
+                            buttonNodeFill.BackColor, buttonFontColor.BackColor,true);
+                    }
+
+                    if (radioButtonSquareNode.Checked)
+                    {
+                        graph.AddNode(e.X, e.Y, textBoxAddNode.Text, buttonNodeColor.BackColor,
+                            buttonNodeFill.BackColor, buttonFontColor.BackColor, false);
+                    }
+
                     if (k != graph.GetNodesListCount())
                     {
                         textBoxAddNode.Text = GrowNodeName(textBoxAddNode.Text);
                     }
-                    graph.Draw(g);
+
+                    DrawUtils.Draw(this.g, graph);
                 }
             }
+
 
             if (radioButtonDelNode.Checked)
             {
                 graph.DeleteNode(e.X, e.Y);
-                graph.Draw(g);
+                DrawUtils.Draw(this.g, graph);
             }
 
             if (radioButtonMoveNode.Checked)
             {
                 graph.MoveNode(e.X, e.Y);
-                graph.Draw(g);
+                DrawUtils.Draw(this.g, graph);
             }
 
             if (radioButtonAddEdge.Checked)
             {
-                graph.AddEdge(e.X, e.Y);
-                graph.Draw(g);
+                graph.AddEdge(e.X, e.Y, buttonEdgeColor.BackColor, buttonArrowColor.BackColor);
+                DrawUtils.Draw(this.g, graph);
             }
 
             if (radioButtonDelEdge.Checked)
             {
-                //graph.DeleteEdge(e.X, e.Y);
-               // graph.HiglightEdge(e.X,e.Y);
-                graph.Draw(g);
+                graph.DeleteEdge(e.X, e.Y);
+                // graph.HiglightEdge(e.X,e.Y);
+                DrawUtils.Draw(this.g, graph);
             }
+            gr2.DrawImage(bitmap, 0, 0);
         }
 
         private void buttonSaveGraph_Click(object sender, EventArgs e)
@@ -131,7 +156,7 @@ namespace CompGeo6DurovMA
             if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            graph.SaveGraph(saveFileDialog.FileName);
+            GraphIOUtils.SaveGraph(graph,saveFileDialog.FileName);
         }
 
         private void buttonLoadGraph_Click(object sender, EventArgs e)
@@ -141,9 +166,9 @@ namespace CompGeo6DurovMA
             if (openFileDialog.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            graph = graph.LoadGraph(openFileDialog.FileName);
+            graph = GraphIOUtils.LoadGraph(openFileDialog.FileName);
             g.DrawRectangle(Pens.BlueViolet,rect);
-            graph.Draw(g);
+            DrawUtils.Draw(g, graph);
         }
 
         private void pictureBoxMain_Paint(object sender, PaintEventArgs e)
@@ -165,6 +190,27 @@ namespace CompGeo6DurovMA
             colorDialog1.Color = buttonNodeFill.BackColor;
             colorDialog1.ShowDialog();
             buttonNodeFill.BackColor = colorDialog1.Color;
+        }
+
+        private void buttonFontColor_Click(object sender, EventArgs e)
+        {
+            colorDialog1.Color = buttonFontColor.BackColor;
+            colorDialog1.ShowDialog();
+            buttonFontColor.BackColor = colorDialog1.Color;
+        }
+
+        private void buttonEdgeColor_Click(object sender, EventArgs e)
+        {
+            colorDialog1.Color = buttonEdgeColor.BackColor;
+            colorDialog1.ShowDialog();
+            buttonEdgeColor.BackColor = colorDialog1.Color;
+        }
+
+        private void buttonArrowColor_Click(object sender, EventArgs e)
+        {
+            colorDialog1.Color = buttonArrowColor.BackColor;
+            colorDialog1.ShowDialog();
+            buttonArrowColor.BackColor = colorDialog1.Color;
         }
     }
 }

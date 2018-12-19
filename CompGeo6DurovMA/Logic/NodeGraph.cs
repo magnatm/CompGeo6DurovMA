@@ -17,5 +17,12 @@ namespace CompGeo6DurovMA.Logic
         public Color FillColor { get; set; }
         public Color BorderColor { get; set; }
         public Color FontColor { get; set; }
+        public bool IsEllipse { get; set; }
+
+        public int GetWidth()
+        {
+            return 40 + +7 * Name.Length;
+        }
     }
+
 }
