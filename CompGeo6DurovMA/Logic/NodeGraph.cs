@@ -21,7 +21,7 @@ namespace CompGeo6DurovMA.Logic
 
         public int GetWidth()
         {
-            return 40 + +7 * Name.Length;
+            return 40 + 7 * Name.Length;
         }
     }
 

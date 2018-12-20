@@ -127,36 +127,6 @@ namespace CompGeo6DurovMA.Logic
             }
         }
 
-        //public void HiglightEdge(int x, int y)/////////////////////////////////////////////////////NEED_UPD
-        //{
-        //    double distRnode, distLnode, distMid1, distMid2;
-        //    double edgeRnode, edgeLnode, edgeMid;
-        //    for (int i = 0; i < EdgesList.Count; i++)
-        //    {
-        //        distLnode = Math.Sqrt(Math.Pow(x - EdgesList[i].LeftNode.X0, 2) + Math.Pow(y - EdgesList[i].LeftNode.Y0, 2));
-        //        distRnode = Math.Sqrt(Math.Pow(x - EdgesList[i].RightNode.X0, 2) + Math.Pow(y - EdgesList[i].RightNode.Y0, 2));
-        //        distMid1 = Math.Sqrt(Math.Pow(x - EdgesList[i].LeftNode.X0, 2) + Math.Pow(y - (EdgesList[i].RightNode.Y0-EdgesList[i].LeftNode.Y0)/2+ EdgesList[i].LeftNode.Y0, 2));
-        //        distMid2 = Math.Sqrt(Math.Pow(x - EdgesList[i].RightNode.X0, 2) + Math.Pow(y - (EdgesList[i].RightNode.Y0 - EdgesList[i].LeftNode.Y0) / 2 + EdgesList[i].LeftNode.Y0, 2));
-        //        edgeRnode = Math.Abs(EdgesList[i].RightNode.Y0 - (EdgesList[i].RightNode.Y0 - EdgesList[i].LeftNode.Y0) / 2);
-        //        edgeLnode = Math.Abs(EdgesList[i].RightNode.Y0 - (EdgesList[i].RightNode.Y0 - EdgesList[i].LeftNode.Y0) / 2);
-        //        edgeMid = Math.Abs(EdgesList[i].RightNode.X0 - EdgesList[i].LeftNode.X0);
-        //        if (Math.Abs(distRnode + distMid2 - edgeRnode) < 0.1)
-        //        {
-        //            EdgesList[i].IsHighlighted = true;
-        //        }
-        //        if (Math.Abs(distMid1 + distMid2 - edgeMid) < 0.1)
-        //        {
-        //            EdgesList[i].IsHighlighted = true;
-        //        }
-        //        if (Math.Abs(distLnode + distMid1 - edgeLnode) < 0.1)
-        //        {
-        //            EdgesList[i].IsHighlighted = true;
-        //        }
-        //    }
-        //}
-
-        
-
         public NodeGraph FindByXY(int x, int y) // нахождение вершины по координатам через мышку
         {
             foreach (NodeGraph p in NodesList)
@@ -232,7 +202,5 @@ namespace CompGeo6DurovMA.Logic
                 }
             }
         }
-
-        
     }
 }
